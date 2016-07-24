@@ -1,0 +1,10 @@
+<h1>hiiii</h1>
+<%= form_for [current_user,@note] do |f| %> 
+	<%= f.label :header %>
+	<%= f.text_field :header %>
+
+	<%= f.label :content %>
+	<%= f.text_field :content %>
+
+	<%= f.submit "Update" %>
+<% end %>

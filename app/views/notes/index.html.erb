@@ -1,0 +1,9 @@
+<h1>hello <%=current_user.email%>. Here are your notes...</h1>
+
+	<%= link_to "Create a note", new_user_note_path(:user_id => session[:id])%>
+
+<%= render partial:'user_notes', locals: {notes: @notes} %>
+
+<% unless current_user.role == "student" %>
+	<%= render partial:'authorized_notes', locals: {notes: @notes} %>	
+<% end %>
