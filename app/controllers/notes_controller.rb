@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
 	def index
 		if current_user.role == "student"
-			@notes = User.find_by(id:session[:id]).notes.order("updated_at DESC")
+			@notes = current_user.notes.order("updated_at DESC")
 		else
 			@notes = Note.all.order("updated_at DESC")
 		end
@@ -16,7 +16,7 @@ class NotesController < ApplicationController
 	end
 
 	def create
-		user_id = User.find_by(id:session[:id]).id
+		user_id = current_user.id
 		@note = Note.new(notes_params)
 		@note.author_id = user_id
 		if @note.save
@@ -49,7 +49,7 @@ class NotesController < ApplicationController
 	private 
 
 	def notes_params
-		params.require(:note).permit(:header,:content,:author_id)
+		params.require(:note).permit(:header,:content,:author_id).try(:categorizations)
 	end
 
 
