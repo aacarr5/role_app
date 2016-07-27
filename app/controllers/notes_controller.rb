@@ -11,14 +11,11 @@ class NotesController < ApplicationController
 	end
 
 	def new
-		@user = User.find_by(id:session[:id])
 		@note = Note.new
 	end
 
 	def create
-		user_id = current_user.id
-		@note = Note.new(notes_params)
-		@note.author_id = user_id
+		@note = current_user.notes.build(notes_params)
 		if @note.save
 			redirect_to user_notes_path
 		else
@@ -49,7 +46,7 @@ class NotesController < ApplicationController
 	private 
 
 	def notes_params
-		params.require(:note).permit(:header,:content,:author_id).try(:categorizations)
+		params.require(:note).permit(:header,:content,:author_id)
 	end
 
 
