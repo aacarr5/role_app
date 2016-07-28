@@ -1,0 +1,10 @@
+<h1>Here are the associated notes</h1>
+<% unless @category.notes.empty? do %>
+	<%= @category.notes.each do |note| %>
+		<ul>
+			<li>
+				<%= note.header  %>
+			</li>
+		</ul>
+	<% end %>
+<% end %>

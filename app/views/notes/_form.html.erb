@@ -1,11 +1,12 @@
+<%= form_for [:user,@note], class:"noteForm" do |f| %>
 	<%= f.label :header %>
 	<%= f.text_field :header %>
 
 	<%= f.label :content %>
 	<%= f.text_field :content %>
 
-	<%= f.label :categorizations %>
-	<%= f.text_field :categorizations %>
-
+	<%= f.label :categories %>
+	<%= f.text_field :categories, :value => "" %>
 
 	<%= f.submit %>
+<% end %>

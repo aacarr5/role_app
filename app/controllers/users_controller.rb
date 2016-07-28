@@ -12,7 +12,6 @@ class UsersController < ApplicationController
 			session[:id] = @user.id
 			redirect_to '/'
 		else
-			binding.pry
 			redirect_to new_user_path @user
 		end
 	end

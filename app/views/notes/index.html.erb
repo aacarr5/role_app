@@ -1,8 +1,10 @@
 <h1>hello <%=current_user.email%>. Here are your notes...</h1>
 
-	<%= link_to "Create a note", new_user_note_path(:user_id => session[:id])%>
+	<%= link_to "Create a note", new_user_note_path(:user_id => session[:id]), class:"createNoteBtn" %>
 
-<%= render partial:'user_notes', locals: {notes: @notes} %>
+<%= render partial:'user_notes', locals: {notes: @notes}, class:"userNotes" %>
+
+<div class="newNote"></div>
 
 <% unless current_user.role == "student" %>
 	<%= render partial:'authorized_notes', locals: {notes: @notes} %>	

@@ -11,18 +11,15 @@ class NotesController < ApplicationController
 	end
 
 	def new
-		@user = User.find_by(id:session[:id])
 		@note = Note.new
 	end
 
 	def create
-		user_id = current_user.id
-		@note = Note.new(notes_params)
-		@note.author_id = user_id
-		if @note.save
-			redirect_to user_notes_path
-		else
-			render 'new'
+		@note = current_user.notes.build(notes_params)
+
+		respond_to do |format|
+			format.html { valid_post(@note) }
+			format.js
 		end
 	end
 
@@ -46,10 +43,19 @@ class NotesController < ApplicationController
 		@note = Note.find_by(id:params[:id])
 	end
 
+
 	private 
 
 	def notes_params
-		params.require(:note).permit(:header,:content,:author_id).try(:categorizations)
+		params.require(:note).permit(:header,:content,:author_id,:categories)
+	end
+
+	def valid_post(note)
+		if @note.save
+			redirect_to user_notes_path
+		else
+			render 'new'
+		end
 	end
 
 
