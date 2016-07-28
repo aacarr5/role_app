@@ -16,10 +16,10 @@ class NotesController < ApplicationController
 
 	def create
 		@note = current_user.notes.build(notes_params)
-		if @note.save
-			redirect_to user_notes_path
-		else
-			render 'new'
+
+		respond_to do |format|
+			format.html { valid_post(@note) }
+			format.js
 		end
 	end
 
@@ -43,10 +43,19 @@ class NotesController < ApplicationController
 		@note = Note.find_by(id:params[:id])
 	end
 
+
 	private 
 
 	def notes_params
-		params.require(:note).permit(:header,:content,:author_id)
+		params.require(:note).permit(:header,:content,:author_id,:categories)
+	end
+
+	def valid_post(note)
+		if @note.save
+			redirect_to user_notes_path
+		else
+			render 'new'
+		end
 	end
 
 

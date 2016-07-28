@@ -15,3 +15,12 @@
 	end
 
 end
+
+10.times do 
+	cateogry = FactoryGirl.create(:category)
+end
+
+
+100.times do |count|
+	Categorization.create(note_id:count,category_id: count % 10) 
+end
