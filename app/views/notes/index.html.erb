@@ -1,8 +1,8 @@
 <h1>hello <%=current_user.email%>. Here are your notes...</h1>
 
-	<%= link_to "Create a note", new_user_note_path(:user_id => session[:id]), class:"createNoteBtn" %>
+	<%= link_to "Create a note", new_user_note_path(:user_id => session[:id]), class:"createNoteBtn", remote:true %>
 
-<%= render partial:'user_notes', locals: {notes: @notes}, class:"userNotes" %>
+<%= render partial:'user_notes', locals: {notes: @notes} %>
 
 <div class="newNote"></div>
 

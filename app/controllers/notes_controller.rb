@@ -12,6 +12,10 @@ class NotesController < ApplicationController
 
 	def new
 		@note = Note.new
+		respond_to do |format|
+			format.html {}
+			format.js {render 'new'}
+		end
 	end
 
 	def create
@@ -19,7 +23,7 @@ class NotesController < ApplicationController
 
 		respond_to do |format|
 			format.html { valid_post(@note) }
-			format.js {render 'create', :locals => {note => @note}}
+			format.js {render 'create', :locals => {:note => @note}}
 		end
 	end
 

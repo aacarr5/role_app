@@ -1,17 +1,17 @@
+<ul class="userNotes">
 	<% @notes.select{|ele| ele.author.email == current_user.email}.each do |note| %>
-		<ul>
-			<li class="note_id_<%=note.id%>">
-				<h2><%= link_to note.header, user_note_path(:user => current_user,:id => note.id) %></h2>
-				<h3><%= note.content %></h3>
-				<h4>Created <%= time_ago_in_words(note.created_at) %> ago</h4>
-				<%=button_to "Delete", user_note_path(:user => current_user,:id => note.id), :method => :delete, remote:true,class:'deletePostBtn' %>
-				<%=link_to "Edit", edit_user_note_path(current_user,note) %>
-				<span> Here are the notes categories </span>
-				<% note.categories.each do |category| %>	
-					<ul>
-						<li><%= category.name %></li>
-					</ul>
-				<% end %>
-			</li>
-		</ul>
+		<li class="note_id_<%=note.id%>">
+			<h2><%= link_to note.header, user_note_path(:user => current_user,:id => note.id) %></h2>
+			<h3><%= note.content %></h3>
+			<h4>Created <%= time_ago_in_words(note.created_at) %> ago</h4>
+			<%=button_to "Delete", user_note_path(:user => current_user,:id => note.id), :method => :delete, remote:true,class:'deletePostBtn' %>
+			<%=link_to "Edit", edit_user_note_path(current_user,note) %>
+			<span> Here are the notes categories </span>
+			<% note.categories.each do |category| %>	
+				<ul>
+					<li><%= category.name %></li>
+				</ul>
+			<% end %>
+		</li>
 	<% end %>
+</ul>
