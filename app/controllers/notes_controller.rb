@@ -21,9 +21,13 @@ class NotesController < ApplicationController
 	def create
 		@note = current_user.notes.build(notes_params)
 
-		respond_to do |format|
-			format.html { valid_post(@note) }
-			format.js {render 'create', :locals => {:note => @note}}
+		if @note.save
+			respond_to do |format|
+				format.html { valid_post(@note) }
+				format.js {render 'create', :locals => {:note => @note}}
+			end
+		else
+			redirect_to user_notes_path
 		end
 	end
 
