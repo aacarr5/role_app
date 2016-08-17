@@ -1,6 +1,6 @@
-	<h1>Here are all the other student's notes</h1>
+<h1>Here are all the other student's notes</h1>
+<ul>
 	<% @notes.select{|ele| ele.author.email != current_user.email}.each do |note| %>
-		<ul>
 			<li>
 				<h2> <%= link_to note.header, user_note_path(:id => current_user.id) %></h2>
 				<h3> <%= note.content %></h3>
@@ -11,5 +11,5 @@
 					<%= button_to "Edit Post", edit_user_path(note.author,note) %>
 				<%end%>
 			</li>
-		</ul>
 	<% end %>
+</ul>

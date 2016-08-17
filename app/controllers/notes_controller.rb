@@ -12,14 +12,22 @@ class NotesController < ApplicationController
 
 	def new
 		@note = Note.new
+		respond_to do |format|
+			format.html {}
+			format.js {render 'new'}
+		end
 	end
 
 	def create
 		@note = current_user.notes.build(notes_params)
 
-		respond_to do |format|
-			format.html { valid_post(@note) }
-			format.js
+		if @note.save
+			respond_to do |format|
+				format.html { valid_post(@note) }
+				format.js {render 'create', :locals => {:note => @note}}
+			end
+		else
+			redirect_to user_notes_path
 		end
 	end
 
@@ -34,8 +42,13 @@ class NotesController < ApplicationController
 	end
 
 	def destroy
-		note = Note.find_by(id:params[:id]).destroy
-		redirect_to user_notes_path
+		note = Note.find_by(id:params[:id])
+		note_id = note.id
+		note.destroy
+		respond_to do|format|
+			format.html {redirect_to user_notes_path}
+			format.js   { render 'destroy', :locals => {:id => note_id} }
+		end
 	end
 
 

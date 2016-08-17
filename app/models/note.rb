@@ -6,6 +6,7 @@ class Note < ActiveRecord::Base
 	has_many :categories, through: :categorizations
 
 	def categories=(categories)
+		return if categories == nil || categories.length == 0
 		categories.split(",").each do |cat|
 			exists = Category.find_by(name:cat)
 			if exists
